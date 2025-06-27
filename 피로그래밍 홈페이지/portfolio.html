@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href = "./apple-icon-57x57.png">
+    <link rel="stylesheet" href="./reset.css">
+    <title>피로그래밍</title>
+    <style>
+        #wrap {
+            background-color:black;
+            display:grid;
+            grid-gap:5px;
+        }
+        #hamburger {
+            display:grid;
+            grid-template-columns:repeat(6, auto);
+            list-style:none;
+            padding:0;
+            margin:0;
+            grid-gap:16px;
+            right:-20;
+        }
+        #hamburger li {
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+        #header {
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:0 40px;
+            height:100%;
+        }
+        #piro_logo {
+            left:-10;
+        }
+        #Home {
+            display:inline-block;
+            color:white;
+            width:52.76px;
+            height:20.8px;
+        }
+        #AboutUs {
+            display:inline-block;
+            color:white;
+            width:81.59px;
+            height:20.8px;
+        }
+        #Portfolio {
+            display:inline-block;
+            color:white;
+            width:73.26px;
+            height:20.8px;
+        }
+        #Interview {
+            display:inline-block;
+            color:white;
+            width:79.56px;
+            height:20.8px;
+        }
+        #Gallery {
+            display:inline-block;
+            color:white;
+            width:62.08px;
+            height:20.8px;
+        }
+        #Recruit {
+            display:inline-block;
+            color:white;
+            width:61.73px;
+            height:20.8px;
+        }
+        #main {
+            display:grid;
+            color:white;
+            grid-template-rows:40px 142px 142px 142px 142px 142px 142px;
+            padding:90px 40px 50px;
+            gap:15px
+        }
+        #generation {
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:20px;
+            padding:10px 0;
+        }
+        #project1, #project2, #project3, #project4, #project5, #project6{
+            display:flex;
+            background-color:#333333;
+            border-radius:10px;
+            justify-content:flex-start;
+            gap:30px;
+            align-items:center;
+            padding:16px;
+        }
+        #project1-img, #project2-img, #project3-img, #project4-img, #project5-img, #project6-img{
+            width:150px;
+            height:102.5px;
+            border-radius:10px;
+        }
+        #project1-text, #project2-text, #project3-text, #project4-text, #project5-text, #project6-text {
+            display:grid;
+            grid-template-rows:22px 20px 26px;
+            padding:5px 0;
+            gap:5px;
+        }
+        #project1-text-title, #project2-text-title, #project3-text-title, #project4-text-title, #project5-text-title, #project6-text-title {
+            width:396.89px;
+            height:22px;
+        }
+        #project1-text-names, #project2-text-names, #project3-text-names, #project4-text-names, #project5-text-names, #project6-text-names{
+            display:grid;
+            grid-template-columns:repeat(5, 55.65px);
+            width:100%;
+            gap:3px;
+        }
+        .project-text-name {
+            width:100%;
+            font-size:1rem;
+            background-color:rgba(236, 236, 236, 0.466);
+            border-radius:10px;
+            padding:3px 3px;;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            <img id="piro_logo" src="./logo.svg" alt="피로그래밍 로고">
+            <ul id="hamburger">
+                <li>
+                    <a href="#" id="Home">Home</a>
+                </li>
+                <li>
+                    <a href="#" id="AboutUs">About Us</a>
+                </li>
+                <li>
+                    <a href="#" id="Portfolio">Portfolio</a>
+                </li>
+                <li>
+                    <a href="#" id="Interview">Interview</a>
+                </li>
+                <li>
+                    <a href="#" id="Gallery">Gallery</a>
+                </li>
+                <li>
+                    <a href="#" id="Recruit">Recruit</a>
+                </li>
+            </ul>
+        </div>
+        <div id="main">
+            <div id="generation">
+                <div id="22gen">22기</div>
+                <div id="21gen">21기</div>
+            </div>
+            <div id="project1">
+                <img id="project1-img" src="./codynow-pic.png" alt="codynow사진">
+                <div id="project1-text">
+                    <div id="project1-text-title">Codynow</div>
+                    <div id="project1-text-des">스타일에 대한 고민을 덜어주는 AI 코디네이터, Codynow</div>
+                    <duv id="project1-text-names">
+                        <div class="project-text-name">홍다오</div>
+                        <div class="project-text-name">박서정</div>
+                        <div class="project-text-name">최준혁</div>
+                        <div class="project-text-name">김예원</div>
+                        <div class="project-text-name">김은경</div>
+                    </duv>
+                </div>
+            </div>
+            <div id="project2">
+                <img id="project2-img" src="./걸음걸이-pic.png" alt="걸음걸이사진">
+                <div id="project2-text">
+                    <div id="project2-text-title">걸음걸이</div>
+                    <div id="project2-text-des">멈추지 않을 당신의 걸음을 위한 맞춤형 서비스</div>
+                    <div id="project2-text-names">
+                        <div class="project-text-name">남경민</div>
+                        <div class="project-text-name">김규일</div>
+                        <div class="project-text-name">김선주</div>
+                        <div class="project-text-name">박건욱</div>
+                        <div class="project-text-name">이주원</div>
+                    </div>
+                </div>
+            </div>
+            <div id="project3">
+                <img id="project3-img" src="./지성Park-pic.png" alt="지성Park사진">
+                <div id="project3-text">
+                    <div id="project3-text-title">지성Park</div>
+                    <div id="project3-text-des">지성있는 운전자들을 위한 실시간 주차장 정보 제공 서비스</div>
+                    <div id="project3-text-names">
+                        <div class="project-text-name">정원준</div>
+                        <div class="project-text-name">김현진</div>
+                        <div class="project-text-name">임유지</div>
+                        <div class="project-text-name">김태린</div>
+                        <div class="project-text-name">박태희</div>
+                    </div>
+                </div>
+            </div>
+            <div id="project4">
+                <img id="project4-img" src="./Urabi-pic.png" alt="Urabi사진">
+                <div id="project4-text">
+                    <div id="project4-text-title">Urabi</div>
+                    <div id="project4-text-des">사용자가 원하는 대로, 유럽 여행 동행 매칭 & 커뮤니티 서비스</div>
+                    <div id="project4-text-names">
+                        <div class="project-text-name">민설아</div>
+                        <div class="project-text-name">유승인</div>
+                        <div class="project-text-name">최민석</div>
+                        <div class="project-text-name">김재원</div>
+                        <div class="project-text-name">이시은</div>
+                    </div>
+                </div>
+            </div>
+            <div id="project5">
+                <img id="project5-img" src="./pictory-pic.png" alt="pictory사진">
+                <div id="project5-text">
+                    <div id="project5-text-title">Pictory</div>
+                    <div id="project5-text-des">인생네컷으로 만드는 나만의 일기장</div>
+                    <div id="project5-text-names">
+                        <div class="project-text-name">박수연</div>
+                        <div class="project-text-name">김은성</div>
+                        <div class="project-text-name">임진수</div>
+                        <div class="project-text-name">김수연</div>
+                    </div>
+                </div>
+            </div>
+            <div id="project6">
+                <img id="project6-img" src="./온기록-pic.png" alt="온기록사진">
+                <div id="project6-text">
+                    <div id="project6-text-title">온기록</div>
+                    <div id="project6-text-des">함께한 순간을 기록하면 AI를 통해 반려친구의 마음을 전해주는 기록 서비스</div>
+                    <div id="project6-text-names">
+                        <div class="project-text-name">박혜린</div>
+                        <div class="project-text-name">김영호</div>
+                        <div class="project-text-name">장재훈</div>
+                        <div class="project-text-name">한종서</div>
+                        <div class="project-text-name">조주영</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
