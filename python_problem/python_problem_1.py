@@ -17,6 +17,8 @@ while True:
         if check == 0: print("playerA:", num, sep="")
         else: print("playerB:", num, sep="")
         if num == 31:
+            if (check == 0) : print("playerB win!")
+            else : print("playerA win!")
             finish = True
             break
     if finish == True: break
