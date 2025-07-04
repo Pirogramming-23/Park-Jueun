@@ -1,7 +1,7 @@
 num = 0
-check = 0 #A순서인지 B순서인지 체크(0 이면 A, 1 이면 B)
-finish = False #게임이 끝났는지 체크
-while True:
+
+def brGame(player):
+    global num
     while True:
         try:
             n = int(input("부를 숫자의 개수를 입력하세요(1, 2, 3만 입력 가능) : "))
@@ -14,12 +14,17 @@ while True:
 
     for i in range(n):
         num += 1
-        if check == 0: print("playerA:", num, sep="")
-        else: print("playerB:", num, sep="")
+        print("player",player,":", num, sep="")
         if num == 31:
-            if (check == 0) : print("playerB win!")
-            else : print("playerA win!")
-            finish = True
-            break
-    if finish == True: break
-    check = 1 - check
+            return True
+    return False
+
+while True:
+    x = brGame("A")
+    if x == True: 
+        print("playerB win!")
+        break
+    x = brGame("B")
+    if x == True: 
+        print("playerA win!")
+        break
