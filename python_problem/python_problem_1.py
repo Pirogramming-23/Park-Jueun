@@ -9,3 +9,7 @@ while True:
         if (n != 1 and n != 2 and n != 3):
             print("1, 2, 3 중 하나를 입력하세요")
         else : break
+
+for i in range(n):
+    num += 1
+    print("playerA:", num, sep="")
