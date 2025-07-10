@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리뷰 리스트 페이지</title>
+    <style>
+        .header {
+            display:flex;
+            justify-content: space-between;
+            border-bottom:1px solid #ccc;
+            padding-bottom:10px;
+            margin-bottom: 20px;
+        }
+        .page-title {
+            font-size: 40px;
+            color:blue;
+        }
+        .Addnew {
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            width:auto;
+            height:auto;
+            background-color:#007BFF;
+            color:white;
+            font-size:20px;
+            border:none;
+            border-radius:12px;
+            cursor:pointer;
+            padding:10px;
+        }
+        .review_list {
+            display:flex;
+            gap:16px;
+            flex-wrap:wrap;
+            justify-content: center;
+            align-items: center;
+            min-height: 70vh;
+        }
+        .review {
+            background-color: #e0e0e0;
+            padding: 12px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            width:150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <section class="header">
+            <a href="/reviews/" class="page-title"> myMovieReview </a>
+            <a href="/reviews/create/" style="text-decoration: none;" class="Addnew">Add a New Review</a>
+        </section>
+
+        <section class="review_list">
+            {% for review in reviews %}
+                <a href="/reviews/{{review.id}}" style="text-decoration: none;">
+                    <div class="review">
+                        <div class="title">제목 {{review.title}}</div>
+                        <div class="year">개봉년도 {{review.year}}</div>
+                        <div class="genre">장르 {{review.genre}}</div>
+                        <div class="score">별점 {{review.score}}</div>
+                    </div>
+                </a>
+            {% endfor %}
+        </section>
+        
+    </div>
+
+</body>
+</html>

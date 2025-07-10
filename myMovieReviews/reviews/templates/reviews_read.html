@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리뷰 디테일 페이지</title>
+
+    <style>
+        .header {
+            display:flex;
+            justify-content: space-between;
+            border-bottom:1px solid #ccc;
+            padding-bottom:10px;
+            margin-bottom: 20px;
+        }
+        .page-title {
+            font-size: 40px;
+            color:blue;
+        }
+        .Addnew {
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            width:auto;
+            height:auto;
+            background-color:#007BFF;
+            color:white;
+            font-size:20px;
+            border:none;
+            border-radius:12px;
+            cursor:pointer;
+            padding:10px;
+        }
+        .review {
+            margin: 10px;
+        }
+        .review-header {
+            display:flex;
+            justify-content:space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            margin-bottom:20px;
+        }
+        .title {
+            font-size:30px;
+            font-weight: bold;
+        }
+        .header-links {
+            display:flex;
+            gap:10px;
+        }
+        .edit-link, .delete-link {
+            background-color: #ff6b6b;
+            color:white;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            width:auto;
+            height:auto;
+            font-size:20px;
+            border:none;
+            border-radius: 12px;
+            cursor:pointer;
+            padding:10px;
+        }
+        .review-information, .review-content {
+            background-color: #e0e0e0;
+            border-radius: 12px;
+            padding:12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        .review-information {
+            margin-bottom:20px;
+        }
+        .review-content {
+            margin-top: 20px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <section class="header">
+            <a href="/reviews/" class="page-title"> myMovieReview </a>
+            <a href="/reviews/create/" style="text-decoration: none;" class="Addnew">Add a New Review</a>
+        </section>
+
+        <section class="review">
+            <div class="review-header">
+                <div class="title">{{review.title}}</div>
+                <div class="header-links">
+                    <a href="/reviews/{{review.id}}/update/" class="edit-link">✏️ 수정 </a>
+                    <form method="POST" action="/reviews/{{ review.id }}/delete/">
+                        {% csrf_token %}
+                        <button type="submit" class="delete-link">
+                            🗑 삭제
+                        </button>
+                    </form>  
+                </div>
+            </div>
+            
+            <div class="review-information">
+                <div class="year">개봉년도 {{review.year}}</div>
+                <div class="director">감독 {{review.director}}</div>
+                <div class="actors">주연 {{review.actors}}</div>
+                <div class="genre">장르 {{review.genre}}</div>
+                <div class="score">별점 {{review.score}}</div>
+                <div class="running_time">러닝타임 {{review.running_time}}</div>
+            </div>
+            
+            <div class="review-content">
+                <div class="content">{{review.content}}</div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
