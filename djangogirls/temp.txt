@@ -1,0 +1,7 @@
+djangogirls-설치하기 단계를 커밋하기 위한 텍스트 파일입니다
+아래는 작성한 명령어입니다.
+
+python -m venv myvenv (myvenv라는 가상환경 만들기)
+source myvenv/Scripts/activate (가상화경 활성화하기)
+python -m pip install --upgrade pip (pip이 최신버전인지 확인하기)
+pip install django~=2.0.0(장고 설치하기)
