@@ -81,16 +81,16 @@
 <body>
     <div class="container">
         <section class="header">
-            <a href="/reviews/" class="page-title"> myMovieReview </a>
-            <a href="/reviews/create/" style="text-decoration: none;" class="Addnew">Add a New Review</a>
+            <a href="/" class="page-title"> myMovieReview </a>
+            <a href="/create/" style="text-decoration: none;" class="Addnew">Add a New Review</a>
         </section>
 
         <section class="review">
             <div class="review-header">
                 <div class="title">{{review.title}}</div>
                 <div class="header-links">
-                    <a href="/reviews/{{review.id}}/update/" class="edit-link">✏️ 수정 </a>
-                    <form method="POST" action="/reviews/{{ review.id }}/delete/">
+                    <a href="/{{review.id}}/update/" class="edit-link">✏️ 수정 </a>
+                    <form method="POST" action="/{{ review.id }}/delete/">
                         {% csrf_token %}
                         <button type="submit" class="delete-link">
                             🗑 삭제

@@ -27,7 +27,7 @@ def reviews_create(request):
             director=request.POST["director"],
             actors=request.POST["actors"],
         )
-        return redirect("/reviews/")
+        return redirect("/")
     return render(request, "reviews_create.html")
 
 def reviews_update(request, pk):
@@ -43,7 +43,7 @@ def reviews_update(request, pk):
         review.director = request.POST["director"]
         review.actors = request.POST["actors"]
         review.save()
-        return redirect(f"/reviews/{pk}")
+        return redirect(f"/{pk}")
     
     context = {"review":review}
     return render(request, "reviews_update.html", context)
@@ -52,4 +52,4 @@ def reviews_delete(request, pk):
     if request.method == "POST":
         review = Review.objects.get(id=pk)
         review.delete()
-    return redirect("/reviews/")
+    return redirect("/")

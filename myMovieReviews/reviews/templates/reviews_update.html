@@ -64,8 +64,8 @@
 </head>
 <body>
     <section class="header">
-        <a href="/reviews/" class="page-title"> myMovieReview </a>
-        <a href="/reviews/create/" style="text-decoration: none;" class="Addnew">Add a New Review</a>
+        <a href="/" class="page-title"> myMovieReview </a>
+        <a href="/create/" style="text-decoration: none;" class="Addnew">Add a New Review</a>
     </section>
 
     <div class="container">
@@ -74,7 +74,7 @@
         </section>
 
         <section class="update-body">
-            <form action="/reviews/{{review.id}}/update/" method="post">
+            <form action="/{{review.id}}/update/" method="post">
                 {% csrf_token %}
                 제목: <input name="title" placeholder="제목" value="{{review.title}}"> </br>
                 개봉년도: <input name="year" placeholder="개봉년도" value="{{review.year}}"> </br>

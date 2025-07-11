@@ -50,13 +50,13 @@
 <body>
     <div class="container">
         <section class="header">
-            <a href="/reviews/" class="page-title"> myMovieReview </a>
-            <a href="/reviews/create/" style="text-decoration: none;" class="Addnew">Add a New Review</a>
+            <a href="/" class="page-title"> myMovieReview </a>
+            <a href="/create/" style="text-decoration: none;" class="Addnew">Add a New Review</a>
         </section>
 
         <section class="review_list">
             {% for review in reviews %}
-                <a href="/reviews/{{review.id}}" style="text-decoration: none;">
+                <a href="/{{review.id}}" style="text-decoration: none;">
                     <div class="review">
                         <div class="title">제목 {{review.title}}</div>
                         <div class="year">개봉년도 {{review.year}}</div>
