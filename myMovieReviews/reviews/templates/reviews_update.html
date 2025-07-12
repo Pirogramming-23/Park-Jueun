@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리뷰 수정 페이지</title>
+    <style>
+        .header {
+            display:flex;
+            justify-content: space-between;
+            border-bottom:1px solid #ccc;
+            padding-bottom:10px;
+            margin-bottom: 20px;
+        }
+        .page-title {
+            font-size: 40px;
+            color:blue;
+        }
+        .Addnew {
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            width:auto;
+            height:auto;
+            background-color:#007BFF;
+            color:white;
+            font-size:20px;
+            border:none;
+            border-radius:12px;
+            cursor:pointer;
+            padding:10px;
+        }
+        .container {
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            width: 80%;
+            max-width:900px;
+            margin:0 auto;
+            padding: 30px;
+        }
+        .update-header {
+            display:flex;
+            justify-content:center;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom:20px;
+            border-bottom: 2px solid #333;
+            width:70%;
+        }
+        .update-title {
+            font-size:30px;
+        }
+        .update-body input, .update-body textarea{
+            margin-bottom:16px;
+            padding:6px;
+            font-size:16px;
+            border-radius:4px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <section class="header">
+        <a href="/" class="page-title"> myMovieReview </a>
+        <a href="/create/" style="text-decoration: none;" class="Addnew">Add a New Review</a>
+    </section>
+
+    <div class="container">
+        <section class="update-header">
+            <div class="update-title">Movie review</div>
+        </section>
+
+        <section class="update-body">
+            <form action="/{{review.id}}/update/" method="post">
+                {% csrf_token %}
+                제목: <input name="title" placeholder="제목" value="{{review.title}}"> </br>
+                개봉년도: <input name="year" placeholder="개봉년도" value="{{review.year}}"> </br>
+                장르: <input name="genre" placeholder="장르" value="{{review.genre}}"> </br>
+                별점: <input name="score" placeholder="별점" value="{{review.score}}"> </br>
+                러닝타임: <input name="running_time" placeholder="러닝타임" value="{{review.running_time}}"> </br>
+                리뷰: </br>
+                <textarea name="content" cols="30" rows="10" placeholder="리뷰">{{review.content}}</textarea> </br>
+                감독: <input name="director" placeholder="감독" value="{{review.director}}"> </br>
+                배우: <input name="actors" placeholder="배우" value="{{review.actors}}"> </br>
+
+                <div>
+                    <input type="submit" value="save">
+                </div>
+            </form>
+        </section>
+    </div>
+</body>
+</html>
