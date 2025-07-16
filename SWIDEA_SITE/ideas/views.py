@@ -3,6 +3,7 @@ from .models import Idea
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from devtools.models import Devtool
+from django.core.paginator import Paginator
 
 # Create your views here.
 def main_page(request):
@@ -17,9 +18,14 @@ def main_page(request):
     else:
         ideas = Idea.objects.all().order_by('-id')
     
+    paginator = Paginator(ideas, 4)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context={
-        "ideas":ideas,
+        "ideas":page_obj,
         "sort":sort,
+        "page_obj":page_obj,
     }
     return render(request, "main_page.html", context)
 
