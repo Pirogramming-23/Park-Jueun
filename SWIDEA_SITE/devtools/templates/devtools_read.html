@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>devtool detail</title>
+
+    <style>
+        * {
+            margin:0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #228B22;
+        }
+        .NavBar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            color: white;
+        }
+        .page-title {
+            font-size:22px;
+            font-weight: bold;
+            color:#B3FFB3;
+        }
+        .option {
+            display:flex;
+            gap:30px;
+        }
+        .option a {
+            color:white;
+            font-size:16px;
+            transition: color 0.2s ease;
+        }
+
+        .NavBar option a:hover {
+            color:blue; 
+        }
+        .body {
+            padding:30px;
+            text-align:center;
+            color:white;
+        }
+        .body-title {
+            font-size:28px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color:#B3FFB3;
+        }
+        .subtitle {
+            font-size:14px;
+            margin-bottom: 30px;
+            color:white;
+        }
+        .devtool {
+            width:70%;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            background-color: rgba(255, 255, 255, 0.15);
+            padding:30px;
+            border-radius: 15px;
+            text-align: left;
+            color:white;
+        }
+        .devtool .name {
+            font-size: 24px;
+            font-weight: bold;
+            color:white;
+            margin-bottom: 10px;
+        }
+        .kind {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .content {
+            font-size: 15px;
+            color:white;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .bottom-links {
+            display: flex;
+            justify-content: center;
+            gap:20px;
+        }
+        .delete-link {
+            background-color: #f44336;
+            color:white;
+            border:none;
+            padding:10px 20px;
+            font-size: 14px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .back-link, .edit-link {
+            padding:10px 20px;
+            font-size:14px;
+            text-decoration: none;
+            color: white;
+            border-radius: 8px;
+        }
+        .back-link {
+            background-color: #555;
+        }
+        .edit-link {
+            background-color: #6495ED;
+        }
+        a {
+            text-decoration: none;
+        }
+        a:visited {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <section class="NavBar">
+            <a href="{% url 'main_page' %}" class="page-title">My SW Idea Manage</a>
+            <div class="option">
+                <a href="/create/">아이디어 등록</a>
+                <a href="{% url 'main_page' %}">아이디어 관리</a>
+                <a href="/devtools/create/">개발툴 등록</a>
+                <a href="/devtools/">개발툴 관리</a>
+            </div>
+        </section>
+
+        <section class="body">
+            <div class="body-title">DevTool Detail</div>
+            <div class="subtitle">개발툴 세부내용 페이지입니다. 자신이 다룰 수 있는 개발툴에 대한 상세내용을 확인해보세요.</div>
+
+            <div class="devtool">
+                <div class="name">{{devtool.name}}</div>
+                <div class="kind">{{devtool.kind}}</div>
+                <div class="content">{{devtool.content}}</div>
+                <div class="devtool-idea">만들 수 있는 SW목록</div>
+                <ul>
+                    {% for idea in ideas %}
+                        <li><a href="/{{idea.id}}/">{{idea.title}}</a></li>
+                    {% empty %}
+                        <li>이 개발툴을 사용하는 아이디어가 없습니다.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="bottom-links">
+                <form method="POST" action="/devtools/{{ devtool.id }}/delete/">
+                    {% csrf_token %}
+                    <button type="submit" class="delete-link">
+                        🗑 삭제
+                    </button>
+                </form>   
+                <a href="/devtools" class="back-link">목록</a>
+                <a href="/devtools/{{devtool.id}}/update/" class="edit-link">✏️ 수정</a>
+            </div>
+        </section>
+        
+    </div>
+</body>
+</html>

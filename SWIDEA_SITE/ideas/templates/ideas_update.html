@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>idea update</title>
+    <style>
+        * {
+            margin:0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #228B22;
+        }
+        .NavBar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            color: white;
+        }
+        .page-title {
+            font-size:22px;
+            font-weight: bold;
+            color:#B3FFB3;
+        }
+        .option {
+            display:flex;
+            gap:30px;
+        }
+        .option a {
+            color:white;
+            font-size:16px;
+            transition: color 0.2s ease;
+        }
+
+        .NavBar option a:hover {
+            color:blue; 
+        }
+        .body {
+            padding:30px;
+            text-align: center;
+            color:white;
+        }
+        .body-title {
+            font-size:28px;
+            font-weight:bold;
+            margin-bottom: 5px;
+            color:#B3FFB3;
+        }
+        .input-box {
+            width: 400px;
+            margin: 0 auto;
+            padding: 30px;
+            text-align: left;
+            display:flex;
+            flex-direction: column;
+            gap:5px;
+        }
+        .submit {
+            background-color:#B3FFB3;
+            color:black;
+            padding:10px;
+            font-size: 16px;
+            border:none;
+            border-radius: 8px;
+            cursor:pointer;
+            margin-top:15px;
+        }
+        a {
+            text-decoration: none;
+        }
+        a:visited {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <section class="NavBar">
+            <a href="{% url 'main_page' %}" class="page-title">My SW Idea Manage</a>
+            <div class="option">
+                <a href="/create/">아이디어 등록</a>
+                <a href="{% url 'main_page' %}">아이디어 관리</a>
+                <a href="/devtools/create/">개발툴 등록</a>
+                <a href="/devtools/">개발툴 관리</a>
+            </div>
+        </section>
+
+        <section class="body">
+            <div class="page-title">Idea Detail Update</div>
+            <div class="subtitle">아이디어 세부내용 수정페이지입니다. 아이디어를 구체화하거나 내용을 변경해주세요.</div>
+
+            <form action="/{{idea.id}}/update/" method="post" enctype="multipart/form-data" class="input-box">
+                {% csrf_token %}
+                <div class="label">아이디어명:</div>
+                <input name="title" value="{{idea.title}}"/> <br/>
+                <div class="label">Image</div>
+                {% if idea.photo %}
+                    <div class="label">current:{{idea.photo.name}}</div>
+                {% endif %}
+                <input type="file" name="photo"/>
+                <div class="label">아이디어 설명:</div>
+                <textarea name="content" rows="5" cols="40">{{idea.content}}</textarea> <br/>
+                <div class="label">아이디어 관심도:</div>
+                <input name="interest" value="{{idea.interest}}"> <br/>
+                <div class="label">예상 개발툴:</div>
+                <select name="tool">
+                    {% for tool in tools %}
+                        <option value="{{ tool.id }}" {% if idea.tool.id == tool.id %}selected{% endif %}>
+                            {{ tool.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <div>
+                    <input type="submit" value="submit" class="submit">
+                </div>
+            </form>
+        </section>
+        
+    </div>
+</body>
+</html>

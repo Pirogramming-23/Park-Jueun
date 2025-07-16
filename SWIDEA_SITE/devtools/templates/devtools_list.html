@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>devtools list</title>
+
+    <style>
+        * {
+            margin:0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #228B22;
+        }
+        .NavBar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            color: white;
+        }
+        .page-title {
+            font-size:22px;
+            font-weight: bold;
+            color:#B3FFB3;
+        }
+        .option {
+            display:flex;
+            gap:30px;
+        }
+        .option a {
+            color:white;
+            font-size:16px;
+            transition: color 0.2s ease;
+        }
+
+        .NavBar option a:hover {
+            color:blue; 
+        }
+        .body {
+            padding: 30px;
+            text-align: center;
+            color:white;
+        }
+        .body-title {
+            font-size:28px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color:#B3FFB3;
+        }
+        .subtitle {
+            font-size:14px;
+            margin-bottom: 30px;
+            color:white;
+        }
+
+        .devtool-list {
+            width:80%;
+            max-width:800px;
+            margin:0 auto;
+            display:flex;
+            flex-direction: column;
+            gap:20px;
+        }
+        .devtool {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align:left;
+        }
+        .name, .kind, .content {
+            font-weight:bold;
+            font-size:18px;
+            color:green;
+        }
+        a {
+            text-decoration: none;
+        }
+        a:visited {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <section class="NavBar">
+            <a href="{% url 'main_page' %}" class="page-title">My SW Idea Manage</a>
+            <div class="option">
+                <a href="/create/">아이디어 등록</a>
+                <a href="{% url 'main_page' %}">아이디어 관리</a>
+                <a href="/devtools/create/">개발툴 등록</a>
+                <a href="/devtools/">개발툴 관리</a>
+            </div>
+        </section>
+        <section class="body">
+            <div class="body-title">DevTool List</div>
+            <div class="subtitle">개발툴 목록 페이지 입니다. 자신이 사용가능한 개발툴의 목록을 확인해 보세요.</div>
+            <div class="devtool-list">
+                {% for devtool in devtools %}
+                    <a href="/devtools/{{devtool.id}}">
+                        <div class="devtool">
+                            <div class="name">{{devtool.name}}</div>
+                            <div class="kind">{{devtool.kind}}</div>
+                            <div class="content">{{devtool.content}}</div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </section>
+        
+
+    </div>
+</body>
+</html>
