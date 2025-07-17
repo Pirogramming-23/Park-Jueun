@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>devtool register</title>
+
+    <style>
+        * {
+            margin:0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #228B22;
+        }
+        .NavBar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            color: white;
+        }
+        .page-title {
+            font-size:22px;
+            font-weight: bold;
+            color:#B3FFB3;
+        }
+        .option {
+            display:flex;
+            gap:30px;
+        }
+        .option a {
+            color:white;
+            font-size:16px;
+            transition: color 0.2s ease;
+        }
+
+        .NavBar option a:hover {
+            color:blue; 
+        }
+        .body {
+            padding:30px;
+            text-align: center;
+            color:white;
+        }
+        .body-title {
+            font-size:28px;
+            font-weight:bold;
+            margin-bottom: 5px;
+            color:#B3FFB3;
+        }
+        .input-box {
+            width: 400px;
+            margin: 0 auto;
+            padding: 30px;
+            text-align: left;
+            display:flex;
+            flex-direction: column;
+            gap:5px;
+        }
+        .submit {
+            background-color:#B3FFB3;
+            color:black;
+            padding:10px;
+            font-size: 16px;
+            border:none;
+            border-radius: 8px;
+            cursor:pointer;
+            margin-top:15px;
+        }
+        a {
+            text-decoration: none;
+        }
+        a:visited {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <section class="NavBar">
+            <a href="{% url 'main_page' %}" class="page-title">My SW Idea Manage</a>
+            <div class="option">
+                <a href="/create/">아이디어 등록</a>
+                <a href="{% url 'main_page' %}">아이디어 관리</a>
+                <a href="/devtools/create/">개발툴 등록</a>
+                <a href="/devtools/">개발툴 관리</a>
+            </div>
+        </section>
+        <section class="body">
+            <div class="body-title">DevTool Register</div>
+            <div class="subtitle">개발툴 등록 페이지 입니다. 자신이 다룰 수 있는 개발툴을 등록해 보세요.</div>
+
+            <form action="/devtools/create/" method="post" class="input-box">
+                {% csrf_token %}
+                <div class="label">이름:</div>
+                <input name="name"/><br/>
+                <div class="label">종류:</div>
+                <input name="kind"/><br/>
+                <div class="label">개발툴 설명:</div>
+                <textarea name="content" rows="5" cols="40"></textarea><br/>
+                <div>
+                    <input type="submit" value="submit" class="submit">
+                </div>
+            </form>
+        </section>
+        
+    </div>
+</body>
+</html>

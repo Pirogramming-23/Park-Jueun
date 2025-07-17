@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main page</title>
+    <style>
+        * {
+            margin:0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #228B22;
+        }
+        .NavBar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            color: white;
+        }
+        .page-title {
+            font-size:22px;
+            font-weight: bold;
+            color:#B3FFB3;
+        }
+        .option {
+            display:flex;
+            gap:30px;
+        }
+        .option a {
+            color:white;
+            font-size:16px;
+            transition: color 0.2s ease;
+        }
+
+        .NavBar option a:hover {
+            color:blue; 
+        }
+        .body-container {
+            padding:30px;
+            text-align: center;
+            color:white;
+        }
+        .body-title {
+            font-size:28px;
+            font-weight:bold;
+            margin-bottom: 5px;
+            color:#B3FFB3;
+        }
+        .subtitle {
+            font-size:14px;
+            margin-bottom: 30px;
+            color:white;
+        }
+        .idea-list {
+            display:flex;
+            flex-wrap:wrap;
+            justify-content: center;
+            gap:30px;
+        }
+        .idea {
+            background-color:rgba(255, 255, 255, 0.9);
+            color:white;
+            border-radius: 15px;
+            width:200px;
+            padding:20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+            transition: transform 0.2s ease;
+        }
+        .idea:hover {
+            transform: translateY(-5px);
+        }
+        .idea img {
+            width:100%;
+            height:150px;
+            object-fit:cover;
+            border-radius:10px;
+            margin-bottom:10px;
+        }
+        .idea .title {
+            font-size: 16px;
+            font-weight:bold;
+            margin-bottom: 5px;
+            color:black;
+        }
+        .tool, .interest {
+            font-size: 14px;
+            margin-bottom: 5px;
+            color:black;
+        }
+        .interest-btn {
+            background-color:green;
+            color:white;
+            border:none;
+            margin: 0 5px;
+            padding:2px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        a {
+            text-decoration: none;
+        }
+        a:visited {
+            text-decoration: none;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <section class="NavBar">
+            <a href="{% url 'main_page' %}" class="page-title">My SW Idea Manage</a>
+            <div class="option">
+                <a href="/create/">아이디어 등록</a>
+                <a href="{% url 'main_page' %}">아이디어 관리</a>
+                <a href="/devtools/create/">개발툴 등록</a>
+                <a href="/devtools/">개발툴 관리</a>
+            </div>
+        </section>
+        <section class="Body">
+            <div class="body-container">
+                <div class="body-title">Idea List</div>
+                <div class="subtitle">나의 아이디어를 잊지 말고 기록해보세요</div>
+                <form method="get" style="margin-bottom: 20px;">
+                    <select name="sort" onchange="this.form.submit()">
+                        <option value="latest" {% if request.GET.sort == 'latest' %}selected{% endif %}>최신순</option>
+                        <option value="oldest" {% if request.GET.sort == 'oldest' %}selected{% endif %}>등록순</option>
+                        <option value="name" {% if request.GET.sort == 'name' %}selected{% endif %}>이름순</option>
+                        <option value="liked" {% if request.GET.sort == 'liked' %}selected{% endif %}>찜하기순</option>
+                    </select>
+                </form>
+                <div class="idea-list">
+                    {% for idea in ideas %}
+                        <div class="idea" data-id="{{idea.id}}">
+                            {% if idea.photo %}
+                                <img src="{{ idea.photo.url }}" alt="아이디어 이미지">
+                            {% else %}
+                                <div>아무것도 없음</div>
+                            {% endif %}
+                            <button class="star-btn">{% if idea.star %}⭐{% else %}☆{% endif %}</button>
+                            <a href="/{{idea.id}}" class="title">{{idea.title}}</a>
+                            <div class="tool">예상 개발 툴: {{idea.tool}}</div>
+                            <div class="interest" data-id="{{idea.id}}">
+                                아이디어 관심도: <br/>
+                                <button class="interest-btn" data-action="decrease">-</button>
+                                <span class="interest-value">{{idea.interest}}</span>
+                                <button class="interest-btn" data-action="increase">+</button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                </div>
+            </div>
+        </section>
+
+        <div style="margin-top: 30px;">
+            {% if page_obj.has_previous %}
+                <a href="?sort={{ sort }}&page={{ page_obj.previous_page_number }}">이전</a>
+            {% endif %}
+
+            <span>페이지 {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+
+            {% if page_obj.has_next %}
+                <a href="?sort={{ sort }}&page={{ page_obj.next_page_number }}">다음</a>
+            {% endif %}
+        </div>
+    </div>
+    
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(".interest-btn").click(function() {
+        const $box = $(this).closest(".interest");
+        const ideaId = $box.data("id");
+        const action = $(this).data("action");
+
+        $.ajax({
+            url: `/${ideaId}/interest/`,
+            method: "POST",
+            data: {
+                action: action,
+                csrfmiddlewaretoken: "{{ csrf_token }}"
+            },
+            success: function(response) {
+                $box.find(".interest-value").text(response.interest);
+            }
+        });
+    });
+
+   $(".star-btn").click(function () {
+        const $btn = $(this);
+        const ideaId = $btn.closest(".idea").data("id");
+
+        $.ajax({
+            url: `/${ideaId}/star/`,
+            method: "POST",
+            data: {
+                csrfmiddlewaretoken: "{{ csrf_token }}"
+            },
+            success: function (response) {
+                if (response.star) {
+                    $btn.text("⭐");
+                } else {
+                    $btn.text("☆");
+                }
+            }
+        });
+    });
+</script>
+
+</html>

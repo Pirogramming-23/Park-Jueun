@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>idea detail</title>
+    <style>
+        * {
+            margin:0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #228B22;
+        }
+        .NavBar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            color: white;
+        }
+        .page-title {
+            font-size:22px;
+            font-weight: bold;
+            color:#B3FFB3;
+        }
+        .option {
+            display:flex;
+            gap:30px;
+        }
+        .option a {
+            color:white;
+            font-size:16px;
+            transition: color 0.2s ease;
+        }
+
+        .NavBar option a:hover {
+            color:blue; 
+        }
+        .body {
+            padding: 30px;
+            text-align: center;
+            color:white;
+        }
+        .body-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color:#B3FFB3;
+        }
+        .subtitle {
+            font-size:14px;
+            margin-bottom: 30px;
+            color:white;
+        }
+        .idea {
+            width: 70%;
+            max-width: 800px;
+            margin:0 auto 30px;
+            background-color:rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            border-radius: 15px;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+            color:white;
+        }
+        img {
+            width:300px;
+            height: auto;
+            border-radius: 10px;
+            background-color: white;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: white;
+        }
+        .idea-info {
+            text-align: left;
+        }
+        .label {
+            font-weight: bold;
+            font-size: 15px;
+            margin-top: 10px;
+        }
+        .bottom-links {
+            display:flex;
+            justify-content: center;
+            gap:20px;
+        }
+        .delete-link {
+            background-color:#f44336;
+            color:white;
+            border:none;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius:8px;
+            cursor:pointer;
+        }
+        .back-link, .edit-link {
+            padding:10px 20px;
+            font-size:14px;
+            text-decoration: none;
+            color:white;
+            border-radius: 8px;
+        }
+        .back-link {
+            background-color: #555;
+        }
+        .edit-link {
+            background-color: #6495ED;
+        }
+        a {
+            text-decoration: none;
+        }
+        a:visited {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <section class="NavBar">
+            <a href="{% url 'main_page' %}" class="page-title">My SW Idea Manage</a>
+            <div class="option">
+                <a href="/create/">아이디어 등록</a>
+                <a href="{% url 'main_page' %}">아이디어 관리</a>
+                <a href="/devtools/create/">개발툴 등록</a>
+                <a href="/devtools/">개발툴 관리</a>
+            </div>
+        </section>
+        <section class="body">
+            <div class="body-title">Idea Detail</div>
+            <div class="subtitle">아이디어 세부내용 페이지 입니다. 당신이 구현하려 한 아이디어들을 자세히 살펴보세요.</div>
+
+            <div class="idea" data-id="{{idea.id}}">
+                <img src="{{ idea.photo.url }}" alt="{{ idea.title }}">
+                <div class="idea-info">
+                    <div class="title">{{idea.title}}</div> 
+                    <button id="star-btn">
+                        {% if idea.star %}
+                            ⭐
+                        {% else %}
+                            ☆
+                        {% endif %}
+                    </button></br>
+                    <div class="label">1)아이디어 관심도</div>
+                    <div class="interest">{{idea.interest}}</div> </br>
+                    <div class="label">2)예상 개발 툴</div>
+                    <a href="{% url 'devtools_read' idea.tool.id %}">{{idea.tool}}</a> </br>
+                    <div class="label">3)아이디어 설명</div>
+                    <div class="content">{{idea.content}}</div>
+                </div>
+                
+            </div>
+
+            <div class="bottom-links">
+                <form method="POST" action="/{{ idea.id }}/delete/">
+                    {% csrf_token %}
+                    <button type="submit" class="delete-link">
+                        🗑 삭제
+                    </button>
+                </form>   
+                <a href="{% url 'main_page' %}" class="back-link">목록</a>
+                <a href="/{{idea.id}}/update/" class="edit-link">✏️ 수정</a>
+            </div>
+        </section>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $("#star-btn").click(function () {
+        const ideaId = $(".idea").data("id");
+
+        $.ajax({
+            url: `/${ideaId}/star/`,
+            method: "POST",
+            data: {
+                csrfmiddlewaretoken: "{{ csrf_token }}"
+            },
+            success: function (response) {
+                if (response.star) {
+                    $("#star-btn").text("⭐");
+                } else {
+                    $("#star-btn").text("☆");
+                }
+            }
+        });
+    });
+</script>
+</html>
